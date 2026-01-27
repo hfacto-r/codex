@@ -1,7 +1,10 @@
 class Fraction:
     def __init__(self, num, denom):
-        self.num = num//gcd(num, denom)
-        self.denom = denom//gcd(num, denom)
+        if type(num) == int and type(denom) ==int:
+            self.num = num//gcd(num, denom)
+            self.denom = denom//gcd(num, denom)
+        else:
+            raise ValueError('Error : Expected integer')
 
     def __str__(self):
         if self.denom == 1:
@@ -47,6 +50,14 @@ class Fraction:
         else:
             return False 
 
+    def get_num(self):
+        return self.num
+
+    def get_denom(self):
+        return self.denom
+
+
+
 
 
 def gcd(m,n):
@@ -58,8 +69,8 @@ def gcd(m,n):
     return n
 
 def main():
-    f1 = Fraction(1,4)
-    f2 = Fraction(1, 3)
-    print(f1==f2) 
+    f1 = Fraction(1,-4)
+    f2 = Fraction(1, 4)
+    print(f1) 
 if __name__=='__main__': 
     main()
