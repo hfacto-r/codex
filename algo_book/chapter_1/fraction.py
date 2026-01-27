@@ -20,13 +20,20 @@ class Fraction:
             return f'{self.num}/{self.denom}'
 
     def __add__(self, other):
+        if isinstance(other, int):
+            other =  Fraction(other, 1)
         if not isinstance(other, Fraction):
             return NotImplemented
         new_num = (self.num * other.denom) + (self.denom * other.num)
         new_denom = self.denom * other.denom
         return Fraction(new_num, new_denom)
 
+    def __radd__(self, other):
+        return self.__add__(other)
+
     def __sub__(self, other):
+        if isinstance(other, int):
+            other = Fraction(other, 1)
         if not isinstance(other, Fraction):
             return NotImplemented
         new_num = (self.num * other.denom) - (self.denom * other.num)
@@ -52,27 +59,27 @@ class Fraction:
     def __eq__(self, other):
         if not isinstance(other, Fraction):
             return NotImplemented
-        return (self.num * other.denom) ==  (self.denom * other.num):
+        return (self.num * other.denom) ==  (self.denom * other.num)
 
     def __le__(self, other):
         if not isinstance(other, Fraction):
             return NotImplemented
-        return (self.num * other.denom) <=  (self.denom * other.num):
+        return (self.num * other.denom) <=  (self.denom * other.num)
 
     def __ge__(self, other):
         if not isinstance(other, Fraction):
             return NotImplemented
-        return (self.num * other.denom) >=  (self.denom * other.num):
+        return (self.num * other.denom) >=  (self.denom * other.num)
 
     def __lt__(self, other):
         if not isinstance(other, Fraction):
             return NotImplemented
-        return (self.num * other.denom) <  (self.denom * other.num):
+        return (self.num * other.denom) <  (self.denom * other.num)
 
     def __gt__(self, other):
         if not isinstance(other, Fraction):
             return NotImplemented
-        return (self.num * other.denom) >  (self.denom * other.num):
+        return (self.num * other.denom) >  (self.denom * other.num)
 
 
 
@@ -87,7 +94,8 @@ def gcd(m,n):
     return n
 
 def main():
-    f1 = Fraction(1,5
-    print(f1) 
+    f1 = Fraction(1,5)
+    f2 = Fraction(2, 3)
+    print('a'+f1) 
 if __name__=='__main__': 
     main()
