@@ -29,6 +29,25 @@ class Fraction:
         new_denom = (self.denom * other.num)
         return Fraction(new_num, new_denom)
 
+    def __eq__(self, other):
+        if (self.num * other.denom) ==  (self.denom * other.num):
+            return True
+        else:
+            return False 
+
+    def __le__(self, other):
+        if (self.num * other.denom) <  (self.denom * other.num):
+            return True
+        else:
+            return False 
+
+    def __ge__(self, other):
+        if (self.num * other.denom) >  (self.denom * other.num):
+            return True
+        else:
+            return False 
+
+
 
 def gcd(m,n):
     while (m%n) != 0:
@@ -40,8 +59,7 @@ def gcd(m,n):
 
 def main():
     f1 = Fraction(1,4)
-    f2 = Fraction(1, 4)
-    print(f1/f2)
-
-if __name__=='__main__':
+    f2 = Fraction(1, 3)
+    print(f1==f2) 
+if __name__=='__main__': 
     main()
