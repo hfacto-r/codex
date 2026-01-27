@@ -1,4 +1,6 @@
+#TO-DOS
 #chore: Add int instance check in mul, truediv and other comparison operators. 
+#feature: Add __iadd__ method. CAUTION : THIS WILL MAKE THE CLASS MUTABLE
 class Fraction:
     def __init__(self, num, denom):
         if denom == 0:
