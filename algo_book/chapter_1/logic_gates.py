@@ -6,6 +6,19 @@ class LogicGate:
     def get_label(self):
         return self.label
 
+    def ip_prompter(self, pin_label):
+        while True:
+            try:
+                user_ip = int(input(f'Enter the pin {pin_label} value for {self.get_label()}: '))
+            except ValueError:
+                print('ERROR: Enter a Valid Input')
+            else:
+                if user_ip == 1 or user_ip == 0:
+                    return user_ip
+                else:
+                    print('ERROR : Only Binary Values are accepted')
+
+
     def get_output(self):
         #perform the operation
         if self.output == None:
@@ -22,19 +35,15 @@ class BinaryGate(LogicGate):
 
     def get_pin_a(self):
         if self.pin_a == None:
-            return (int(input(f'Enter the pin A value for {self.get_label()}: ')))
+            return self.ip_prompter('A')
         else:
             return self.pin_a.get_fromgate().get_output()
 
     def get_pin_b(self):
         if self.pin_b == None:
-            return (int(input(f'Enter the pin B value for {self.get_label()}: ')))
+            return self.ip_prompter('B')
         else:
-            output_gate =  self.pin_b.get_fromgate()
-            if self.pin_b.get_fromgate().output == None:
-                return output_gate.get_output()
-            else:
-                return output_gate.output
+            return self.pin_b.get_fromgate().get_output()
 
     def hook_connection(self, source):
         """This save any connection the gate is part of"""
@@ -58,7 +67,7 @@ class UnaryGate(LogicGate):
 
     def get_pin(self):
         if self.pin == None:
-            return (int(input(f'Enter Value of the pin of gate {self.get_label()}: ')))
+            return self.ip_prompter('')
         else:
             return self.pin.get_fromgate().get_output()
 
@@ -95,9 +104,14 @@ class NorGate(OrGate):
     def gate_logic(self):
         return int (not super().gate_logic())
 
+class XorGate(BinaryGate):
+
+    def gate_logic(self):
+        a = self.get_pin_a()
+        b = self.get_pin_b()
+        return int(a != b)
+
 class NotGate(UnaryGate):
-    def __init__(self, label):
-        super().__init__(label)
 
     def gate_logic(self):
         a = self.get_pin()
@@ -120,10 +134,11 @@ class Connector:
 
 def main():
     g1 = NandGate('G1')
-    g2 = NandGate('G2')
+    g2 = XorGate('G2')
+    g3 = NotGate('G3')
     c1 = Connector(g1, g2)
-    c2 = Connector(g1, g2)
-    print(g2.get_output())
+    c2 = Connector(g2, g3)
+    print(g3.get_output())
 if __name__ == '__main__':
     main()
 
