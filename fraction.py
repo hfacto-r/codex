@@ -1,10 +1,17 @@
 class Fraction:
     def __init__(self, num, denom):
+        if denom == 0:
+            raise ZeroDivisionError('Zero division not permitted')
         if type(num) == int and type(denom) ==int:
-            self.num = num//gcd(num, denom)
-            self.denom = denom//gcd(num, denom)
+            common = gcd(num, denom)
+            self.num = num//common
+            self.denom = denom//common
         else:
             raise ValueError('Error : Expected integer')
+
+        if self.denom < 0:
+            self.denom = - self.denom
+            self.num = -self.num
 
     def __str__(self):
         if self.denom == 1:
@@ -13,64 +20,90 @@ class Fraction:
             return f'{self.num}/{self.denom}'
 
     def __add__(self, other):
+        if not isinstance(other, Fraction):
+            return NotImplemented
         new_num = (self.num * other.denom) + (self.denom * other.num)
         new_denom = self.denom * other.denom
         return Fraction(new_num, new_denom)
 
     def __sub__(self, other):
+        if not isinstance(other, Fraction):
+            return NotImplemented
         new_num = (self.num * other.denom) - (self.denom * other.num)
         new_denom = self.denom * other.denom
         return Fraction(new_num, new_denom)
 
     def __mul__(self, other):
+        if not isinstance(other, Fraction):
+            return NotImplemented
         new_num = (self.num * other.num) 
         new_denom = self.denom * other.denom
         return Fraction(new_num, new_denom)
 
     def __truediv__(self, other):
+        if not isinstance(other, Fraction):
+            return NotImplemented
+        if other.num == 0:
+            raise ZeroDivisionError('division by zero fraction')
         new_num = (self.num * other.denom) 
         new_denom = (self.denom * other.num)
         return Fraction(new_num, new_denom)
 
     def __eq__(self, other):
+        if not isinstance(other, Fraction):
+            return NotImplemented
         if (self.num * other.denom) ==  (self.denom * other.num):
             return True
         else:
             return False 
 
     def __le__(self, other):
-        if (self.num * other.denom) <  (self.denom * other.num):
+        if not isinstance(other, Fraction):
+            return NotImplemented
+        if (self.num * other.denom) <=  (self.denom * other.num):
             return True
         else:
             return False 
 
     def __ge__(self, other):
+        if not isinstance(other, Fraction):
+            return NotImplemented
+        if (self.num * other.denom) >=  (self.denom * other.num):
+            return True
+        else:
+            return False 
+
+    def __lt__(self, other):
+        if not isinstance(other, Fraction):
+            return NotImplemented
+        if (self.num * other.denom) <  (self.denom * other.num):
+            return True
+        else:
+            return False 
+
+    def __gt__(self, other):
+        if not isinstance(other, Fraction):
+            return NotImplemented
         if (self.num * other.denom) >  (self.denom * other.num):
             return True
         else:
             return False 
 
-    def get_num(self):
-        return self.num
-
-    def get_denom(self):
-        return self.denom
-
-
-
 
 
 def gcd(m,n):
-    while (m%n) != 0:
-        oldm = m
-        oldn = n
-        m = oldn
-        n = oldm % oldn
-    return n
+    m = abs(m)
+    n = abs(n)
+    if n != 0:
+        while (m%n) != 0:
+            oldm = m
+            oldn = n
+            m = oldn
+            n = oldm % oldn
+        return n
 
 def main():
-    f1 = Fraction(1,-4)
-    f2 = Fraction(1, 4)
+    f1 = Fraction(1,5
     print(f1) 
 if __name__=='__main__': 
     main()
