@@ -52,55 +52,39 @@ class Fraction:
     def __eq__(self, other):
         if not isinstance(other, Fraction):
             return NotImplemented
-        if (self.num * other.denom) ==  (self.denom * other.num):
-            return True
-        else:
-            return False 
+        return (self.num * other.denom) ==  (self.denom * other.num):
 
     def __le__(self, other):
         if not isinstance(other, Fraction):
             return NotImplemented
-        if (self.num * other.denom) <=  (self.denom * other.num):
-            return True
-        else:
-            return False 
+        return (self.num * other.denom) <=  (self.denom * other.num):
 
     def __ge__(self, other):
         if not isinstance(other, Fraction):
             return NotImplemented
-        if (self.num * other.denom) >=  (self.denom * other.num):
-            return True
-        else:
-            return False 
+        return (self.num * other.denom) >=  (self.denom * other.num):
 
     def __lt__(self, other):
         if not isinstance(other, Fraction):
             return NotImplemented
-        if (self.num * other.denom) <  (self.denom * other.num):
-            return True
-        else:
-            return False 
+        return (self.num * other.denom) <  (self.denom * other.num):
 
     def __gt__(self, other):
         if not isinstance(other, Fraction):
             return NotImplemented
-        if (self.num * other.denom) >  (self.denom * other.num):
-            return True
-        else:
-            return False 
+        return (self.num * other.denom) >  (self.denom * other.num):
 
 
 
 def gcd(m,n):
     m = abs(m)
     n = abs(n)
-    if n != 0:
-        while (m%n) != 0:
-            oldm = m
-            oldn = n
-            m = oldn
-            n = oldm % oldn
-        return n
+    while (m%n) != 0:
+        oldm = m
+        oldn = n
+        m = oldn
+        n = oldm % oldn
+    return n
 
 def main():
     f1 = Fraction(1,5
