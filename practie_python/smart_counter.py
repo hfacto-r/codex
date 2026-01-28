@@ -29,7 +29,6 @@ class Counter:
     def history(self):
         return self._history
 
-
     def _log(self, message):
         self._history.append(message)
 

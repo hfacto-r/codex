@@ -141,6 +141,7 @@ def half_adder():
     c4 = Connector(a2, g2)
     print(f'The Sum is {g1.get_output()}')
     print(f'The Carry is {g2.get_output()}')
+
 def test():
     a1 = InputGate('A', 0)
     a2 = InputGate('B', 0)
