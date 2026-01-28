@@ -14,6 +14,7 @@ class LogicGate:
         else:
             return self.output
 
+
 class BinaryGate(LogicGate):
     def __init__(self, label):
         super().__init__(label)
@@ -140,7 +141,20 @@ def half_adder():
     c4 = Connector(a2, g2)
     print(f'The Sum is {g1.get_output()}')
     print(f'The Carry is {g2.get_output()}')
+def test():
+    a1 = InputGate('A', 0)
+    a2 = InputGate('B', 0)
+    g1 = NandGate('G1')
+    g2 = NandGate('G2')
+    c1 = Connector(a1, g1)
+    c2 = Connector(a2, g1)
+    c3 = Connector(g1, g2)
+    c4 = Connector(g1, g2)
+    print(g2.get_output())
+
+
 if __name__ == '__main__':
-    half_adder()
+    #half_adder()
+    test()
 
 
