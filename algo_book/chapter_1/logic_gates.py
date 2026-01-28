@@ -6,19 +6,6 @@ class LogicGate:
     def get_label(self):
         return self.label
 
-    def ip_prompter(self, pin_label):
-        while True:
-            try:
-                user_ip = int(input(f'Enter the pin {pin_label} value for {self.get_label()}: '))
-            except ValueError:
-                print('ERROR: Enter a Valid Input')
-            else:
-                if user_ip == 1 or user_ip == 0:
-                    return user_ip
-                else:
-                    print('ERROR : Only Binary Values are accepted')
-
-
     def get_output(self):
         #perform the operation
         if self.output == None:
@@ -35,13 +22,13 @@ class BinaryGate(LogicGate):
 
     def get_pin_a(self):
         if self.pin_a == None:
-            return self.ip_prompter('A')
+            raise ValueError(f'PIN A Value of {self.get_label()} Not provided')
         else:
             return self.pin_a.get_fromgate().get_output()
 
     def get_pin_b(self):
         if self.pin_b == None:
-            return self.ip_prompter('B')
+            raise ValueError(f'PIN B Value of {self.get_label()} Not provided')
         else:
             return self.pin_b.get_fromgate().get_output()
 
@@ -70,7 +57,6 @@ class UnaryGate(LogicGate):
             return self.ip_prompter('')
         else:
             return self.pin.get_fromgate().get_output()
-
 
 
 class AndGate(BinaryGate):
@@ -132,13 +118,26 @@ class Connector:
     def get_fromgate(self):
         return self.fromgate
 
+class InputGate(LogicGate):
+    def __init__(self, label, value):
+        super().__init__(label)
+        self.value = value
+
+    def gate_logic(self):
+        return self.value
+
 def main():
-    g1 = NandGate('G1')
-    g2 = XorGate('G2')
-    g3 = NotGate('G3')
-    c1 = Connector(g1, g2)
-    c2 = Connector(g2, g3)
-    print(g3.get_output())
+    #implement half adder
+    a1 = InputGate('A', 1)
+    a2 = InputGate('B', 0)
+    a3 = InputGate('B', 0)
+    g1 = XorGate('G1')
+    g2 = NandGate('G2')
+    c1 = Connector(a1, g1)
+    c2 = Connector(a2, g1)
+    c3 = Connector(g1, g2)
+    c4 = Connector(a3, g2)
+    print(g2.get_output())
 if __name__ == '__main__':
     main()
 
