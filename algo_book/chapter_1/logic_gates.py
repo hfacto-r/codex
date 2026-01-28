@@ -54,7 +54,8 @@ class UnaryGate(LogicGate):
 
     def get_pin(self):
         if self.pin == None:
-            return self.ip_prompter('')
+
+            raise ValueError(f'Input Pin Value not provided')
         else:
             return self.pin.get_fromgate().get_output()
 
@@ -80,6 +81,7 @@ class OrGate(BinaryGate):
             return 0
         else:
             return 1
+
 class NandGate(AndGate):
     
     def gate_logic(self):
@@ -126,19 +128,19 @@ class InputGate(LogicGate):
     def gate_logic(self):
         return self.value
 
-def main():
+def half_adder():
     #implement half adder
     a1 = InputGate('A', 1)
-    a2 = InputGate('B', 0)
-    a3 = InputGate('B', 0)
+    a2 = InputGate('B', 1)
     g1 = XorGate('G1')
-    g2 = NandGate('G2')
+    g2 = AndGate('G2')
     c1 = Connector(a1, g1)
     c2 = Connector(a2, g1)
-    c3 = Connector(g1, g2)
-    c4 = Connector(a3, g2)
-    print(g2.get_output())
+    c3 = Connector(a1, g2)
+    c4 = Connector(a2, g2)
+    print(f'The Sum is {g1.get_output()}')
+    print(f'The Carry is {g2.get_output()}')
 if __name__ == '__main__':
-    main()
+    half_adder()
 
 
