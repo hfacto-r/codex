@@ -4,49 +4,46 @@ class Sudoku:
     def __init__(self, sudoku):
         self.sudoku = sudoku
         self._check_valid()
-        self._check_solved()
+        self._find_empty()
 
     def solve(self):
-        while not self._check_solved():
-            for i in range(self.size):
-                for j in range(self.size):
-                    num = self._get_number(i, j)
-                    if not num:
-                        continue
-                    else:
-                        self.sudoku[i][j] = num 
-        print(self.sudoku)
-                    
-                    
-    def _get_number(self, i, j):
-        for num in range(1,10):
-            if not self._check_number(num, i, j):
-                continue
+        index = 0
+        while index < len(self.empty):
+            i, j = self.empty[index]
+            num = self.sudoku[i][j]+1
+            val=self._check_digit(i,j,num)
+            if val!=None:
+                self.sudoku[i][j] = val
+                index +=1
             else:
+                self.sudoku[i][j] = 0
+                index -= 1
+            if index < 0:
+                raise RuntimeError('Unsolvable Sudoku')
+
+
+    def _check_digit(self,i, j, start_num):
+
+        row_start = i//3 * 3
+        col_start = j//3 *3
+        row_lst =  self.sudoku[i]
+        col_lst = [row[j] for row in self.sudoku]
+        block_lst = [col for row in self.sudoku[row_start : row_start + 3] for col in row[col_start:col_start + 3] ]
+        for num in range(start_num, 10):
+            row_check = num not in row_lst
+            col_check = num not in col_lst
+            block_check = num not in block_lst
+            if (row_check and col_check and block_check):
                 return num
-        return False
-            
-    def _check_number(self,num, i, j):
-        return (self._check_row( num, i) and
-                self._check_col(num, j) and
-                self._check_block(num, i, j))
+        return None
 
-    def _check_row(self, num, i):
-        if num not in self.sudoku[i]:
-            return True
-        else:
-            return False
+    def _find_empty(self):
+        self.empty = []
+        for i in range(self.size):
+            for j in range(self.size):
+                if self.sudoku[i][j] == 0:
+                    self.empty.append((i,j))
 
-    def _check_col(self, num, j):
-        for row in self.sudoku:
-            if num != row[j]:
-                continue
-            else:
-                return False
-        return True
-
-    def _check_block(self,num, i, j):
-        return True
 
     def _check_valid(self):
         if self._check_size():
@@ -72,33 +69,19 @@ class Sudoku:
                 raise ValueError('Error : Incorrect Sudoku Dimension')
         self.size= col
         return True
+puzzle =[
+  [0, 0, 0, 9, 0, 5, 0, 4, 0],
+  [0, 9, 1, 8, 0, 0, 0, 0, 2],
+  [3, 0, 0, 0, 0, 0, 0, 0, 0],
+  [2, 0, 0, 3, 0, 0, 0, 0, 0],
+  [6, 0, 0, 0, 0, 0, 0, 0, 7],
+  [0, 7, 3, 0, 0, 8, 5, 0, 0],
+  [0, 6, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 9, 0, 2, 0, 0],
+  [0, 8, 7, 1, 0, 0, 0, 0, 9]
+]
 
-
-    
-
-    def _check_solved(self):
-        for row in self.sudoku:
-            if 0 in row:
-                return False
-            else:
-                continue
-        return True
-
-    def _get_element(self):
-        pass
-
-
-puzzle = [
-  [6, 8, 0, 0, 4, 7, 0, 0, 0],
-  [7, 3, 4, 0, 6, 2, 5, 0, 0],
-  [2, 0, 0, 5, 0, 0, 8, 7, 4],
-  [0, 0, 0, 2, 5, 0, 0, 1, 0],
-  [0, 0, 0, 0, 8, 0, 0, 0, 0],
-  [5, 6, 0, 9, 1, 3, 0, 0, 7],
-  [0, 0, 1, 7, 2, 0, 3, 0, 0],
-  [9, 2, 0, 0, 4, 0, 8, 0, 1],
-  [0, 7, 0, 0, 0, 1, 0, 5, 6]
-] 
 
 sp = Sudoku(puzzle)
-print(sp.solve())
+sp.solve()
+print(sp.sudoku)
