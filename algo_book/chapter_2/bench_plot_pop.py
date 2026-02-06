@@ -13,8 +13,9 @@ for i in range(10000,100000, 10000):
 fig, ax = plt.subplots()
 plt.xlabel('Length of list')
 plt.ylabel('Time Required')
-ax.scatter(pop_x, pop_lst, marker='*')
-ax.scatter(pop_x, popi_lst)
+ax.scatter(pop_x, pop_lst, marker='*', label = 'pop()')
+ax.scatter(pop_x, popi_lst, label = 'pop(i)')
+plt.legend()
 plt.show()
 
 
