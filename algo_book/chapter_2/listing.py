@@ -19,13 +19,17 @@ def test4():
     l = list(range(1000))
     return l
 
+def test0():
+    pass
 
-t1 = timeit.Timer('test1()', 'from __main__ import test1')
-print('concat', t1.timeit(number = 1000))
-t2 = timeit.Timer('test2()', 'from __main__ import test2')
-print('concat', t2.timeit(number = 1000))
-t3  =timeit.Timer('test3()', 'from __main__ import test3')
-print('comphrension', t3.timeit(number =1000))
-t4 = timeit.Timer('test4()', 'from __main__ import test4')
-print('convert', t4.timeit(number =1000))
+t0 = timeit.timeit(stmt = 'test0()', setup = 'from __main__ import test0', number = 1000)
+t1 = timeit.timeit(stmt = 'test1()', setup = 'from __main__ import test1', number = 1000)
+t2 = timeit.timeit(stmt = 'test2()', setup = 'from __main__ import test2', number = 1000)
+t3 = timeit.timeit(stmt = 'test3()', setup = 'from __main__ import test3', number = 1000)
+t4 = timeit.timeit(stmt = 'test4()', setup = 'from __main__ import test4', number = 1000)
+
+print(f'Execution time without the function calling overhead are')
+print(f'Function test_1 : {t1-t0} millisecond')
+print(f'Execution time with the function calling overhead are')
+print(f'Function test_1 : {t1} millisecond')
 
