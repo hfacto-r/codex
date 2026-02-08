@@ -13,7 +13,7 @@ class Stack:
         return self.items[-1]
 
     def pop(self):
-        return self.pop
+        return self.items.pop()
 
     def size(self):
         return len(self.items)
