@@ -11,7 +11,8 @@ from pathlib import Path
 
 def freq_analyzer(file):
     cdict = {}
-    path = Path(str(file))
+    sep = [' ', '.', ',']
+    path = Path(file)
     with path.open('r') as f:
         for line in f:
             wlist = line.strip().lower().split()
@@ -19,6 +20,19 @@ def freq_analyzer(file):
                 cdict[word] = cdict.get(word, 0) + 1
     result = [(k,v) for k,v in cdict.items()]
     # add soring methods
+    c_sorted = sorted(result, key = lambda x: x[1])
+    a_sorted = sorted(result, key = lambda x: x[0])
+    return c_sorted, a_sorted
+
+def show_sorted(file):
+    c_sorted, a_sorted = freq_analyzer(file)
+    print('Word Frequency - Sorted based on Count')
+    for k,v in c_sorted:
+        print(f'{k} --> {v}')
+    print('\n\nWord Frequency - Sorted based on Alphabet')
+    for k,v in a_sorted:
+        print(f'{k} --> {v}')
+
 
 
 
