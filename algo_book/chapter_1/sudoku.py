@@ -18,6 +18,7 @@ class Sudoku:
             else:
                 self.sudoku[i][j] = 0
                 index -= 1
+
             if index < 0:
                 raise RuntimeError('Unsolvable Sudoku')
 
