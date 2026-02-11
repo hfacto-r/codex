@@ -106,9 +106,6 @@ def gcd(m,n):
     return n
 
 def main():
-    f1 = Fraction(1,5)
-    f2 = Fraction(14, 3)
-    print(f2.__repr__())
-    print(int(f2))
+    pass
 if __name__=='__main__': 
     main()
