@@ -21,8 +21,12 @@ class Fraction:
             return f'{self.num}'
         else:
             return f'{self.num}/{self.denom}'
+
     def __repr__(self):
         return f'Fraction({self.num}, {self.denom})' # The reduced fraction
+
+    def __float__(self):
+        return (self.num / self.denom)
 
     def __add__(self, other):
         if isinstance(other, int):
@@ -102,5 +106,6 @@ def main():
     f1 = Fraction(1,5)
     f2 = Fraction(4, 6)
     print(f2.__repr__())
+    print(float(f2))
 if __name__=='__main__': 
     main()
