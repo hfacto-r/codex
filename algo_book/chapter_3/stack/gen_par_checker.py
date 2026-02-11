@@ -13,8 +13,7 @@ def par_checker(astr):
             if s.is_empty():
                 return False
             else:
-                top = s.pop()
-                if not _checker(top, char):
+                if not _checker(s.pop(), char):
                     return False
 
         pos += 1
