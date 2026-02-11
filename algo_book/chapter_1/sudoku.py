@@ -55,21 +55,19 @@ class Sudoku:
     def _check_type(self):
         for row in self.sudoku:
             for num in row:
-                if isinstance(num ,int):
-                    continue
-                else:
-                    raise ValueError(f'Error : Element {num} in {row} is not integer')
+                if not isinstance(num ,int):
+                    raise ValueError(f'Error : Element {num} in {row} is acceptable')
+                if num > 9 or num < 0:
+                    raise ValueError(f'Error : Element {num} in {row} is acceptable')
         return True
 
     def _check_size(self):
-        col = len(self.sudoku)
         for row in self.sudoku:
-            if len(row) == col:
-                continue
-            else:
+            if len(row) != len(self.sudoku):
                 raise ValueError('Error : Incorrect Sudoku Dimension')
-        self.size= col
+        self.size= len(self.sudoku)
         return True
+
 puzzle =[
   [0, 0, 0, 9, 0, 5, 0, 4, 0],
   [0, 9, 1, 8, 0, 0, 0, 0, 2],
