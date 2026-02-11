@@ -28,6 +28,9 @@ class Fraction:
     def __float__(self):
         return (self.num / self.denom)
 
+    def __int__(self):
+        return (self.num//self.denom)
+
     def __add__(self, other):
         if isinstance(other, int):
             other =  Fraction(other, 1)
@@ -104,8 +107,8 @@ def gcd(m,n):
 
 def main():
     f1 = Fraction(1,5)
-    f2 = Fraction(4, 6)
+    f2 = Fraction(14, 3)
     print(f2.__repr__())
-    print(float(f2))
+    print(int(f2))
 if __name__=='__main__': 
     main()
