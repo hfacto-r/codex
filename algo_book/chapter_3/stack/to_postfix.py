@@ -17,6 +17,8 @@ def par_checker(expr):
     return (s.is_empty())
 
 def to_postfix(expr):
+    if not par_checker(expr):
+        raise ValueError('Error: Check input expression')
     s = Stack()
     operands = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     operators = '+-*/'
@@ -25,16 +27,15 @@ def to_postfix(expr):
         if char in operands:
             result += char
         elif char in operators:
-            if s.is_empty():
-                raise RuntimeError
             s.push(char)
         elif char == ')':
+            if s.is_empty():
+                raise RuntimeError
             result += s.pop()
     return result
 
 def main():
     expr_b = '((A+(B*C))+D)'
-    print(par_checker(expr_b))
     print(to_postfix(expr_b))
 
 if __name__ == '__main__':
