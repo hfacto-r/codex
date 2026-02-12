@@ -3,7 +3,7 @@ Assumes that the operands are limited to ABCDEFGHIJKLMNOPQRSTUVWXYZ
 Assumes the operators are limited to +,-,*,/
 """
 from stack import Stack
-
+#Just to make sure that the parenthesis are balanced. 
 def par_checker(expr):
     s = Stack()
     for char in expr:
