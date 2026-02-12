@@ -25,6 +25,8 @@ def to_postfix(expr):
         if char in operands:
             result += char
         elif char in operators:
+            if s.is_empty():
+                raise RuntimeError
             s.push(char)
         elif char == ')':
             result += s.pop()
