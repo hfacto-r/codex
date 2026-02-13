@@ -17,6 +17,4 @@ def tokenizer(expr):
         token_lst.append(temp_str)
     return token_lst
 
-expr = "( Apqw BCD1   F + B* ) * ( C + D))D"
 
-print(tokenizer(expr))
