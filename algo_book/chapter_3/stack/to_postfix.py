@@ -25,6 +25,10 @@ def to_postfix(expr):
     while (not opstack.is_empty()):
         postfixlst.append(opstack.pop())
     return ''.join(postfixlst)
-exp = ' A+ B*C'
-print(to_postfix(exp))
 
+print(to_postfix('A+(B*C)'))
+
+#Notes
+#These expressions do not work
+#A+(B*C)-Provide wrong result because unnecessary parenthesis prioritisation
+#((A+B))+C -  Error: Redundant parenthesis
