@@ -16,6 +16,8 @@ def to_postfix(expr):
             while top !='(':
                 postfixlst.append(top)
                 top = opstack.pop()
+        elif char == '(':
+            opstack.push(char)
         else:
             while (not opstack.is_empty()) and p_dict[opstack.peek()] >= p_dict[char]:
                 top = opstack.pop()
@@ -26,9 +28,8 @@ def to_postfix(expr):
         postfixlst.append(opstack.pop())
     return ''.join(postfixlst)
 
-print(to_postfix('A+(B*C)'))
+print(to_postfix('((A+B))*C'))
 
 #Notes
 #These expressions do not work
 #A+(B*C)-Provide wrong result because unnecessary parenthesis prioritisation
-#((A+B))+C -  Error: Redundant parenthesis
